@@ -1,18 +1,15 @@
 import Header from "@/components/Beginner/Header";
-import Trade from "@/components/Beginner/Trade";
+import Trade from "@/components/Beginner/Trade.jsx";
 import cookie from 'cookie';
-import { NextApiRequest, NextPage } from "next";
 import jwt from "jsonwebtoken";
-import type { JwtPayload } from "jsonwebtoken"
+
 import React, { useEffect } from "react";
 
 
 
-interface propsData {
-    email:String,
-    time:number
-}
-const Beginner:NextPage<propsData> = (props)=> {
+
+
+const Beginner= (props)=> {
 
     useEffect(()=>{
         {console.log(props)}
@@ -31,7 +28,7 @@ const Beginner:NextPage<propsData> = (props)=> {
 
 export default Beginner;
 
-export function getServerSideProps(cont: any) {
+export function getServerSideProps(cont) {
 
     if (!cont.req.headers.cookie) {
         return {
@@ -46,11 +43,11 @@ export function getServerSideProps(cont: any) {
     const { token } = cookie.parse(cont.req.headers.cookie);
 
     try {
-        const decoded = jwt.verify(token, 'gnhjkslfvnrjdf') as JwtPayload;
+        const decoded = jwt.verify(token, 'gnhjkslfvnrjdf') ;
 
         console.log(decoded)
 
-        const prop:propsData = {
+        const prop = {
             email:decoded.email,
             time:decoded.iat
         }

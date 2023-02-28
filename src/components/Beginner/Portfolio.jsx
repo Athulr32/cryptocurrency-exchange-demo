@@ -1,5 +1,6 @@
 import axios from "axios"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import Deposit from "./Deposit.jsx";
 
 
 
@@ -7,7 +8,14 @@ import { useEffect } from "react"
 
 export default function Portfolio({ coins }) {
 
- 
+    
+
+    const [deposit,showDeposit] = useState(false);
+
+    function closeDeposit(){
+
+        showDeposit(false)
+    }
     useEffect(()=>{
 
     },[])
@@ -17,6 +25,7 @@ export default function Portfolio({ coins }) {
     return (
         <>
             {/* <div  style={{ backgroundColor: "#101623"}} className="text-center text-white p-5 text-3xl">Welcome User</div> */}
+        {deposit && <Deposit close={closeDeposit}></Deposit>}
             <div style={{ backgroundColor: "#101623", height: "100%" }} >
                 <div className="text-white" style={{ padding: "100px 100px 0px 150px" }}>
 
@@ -38,7 +47,9 @@ export default function Portfolio({ coins }) {
 
                         <div className="flex justify-center items-end">
                             <div className="mx-2.5 mt-5">
-                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
+                                <button onClick={()=>{
+                                 
+                                    showDeposit(true)}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
                                     Deposit
                                 </button>
                             </div >
@@ -64,7 +75,7 @@ export default function Portfolio({ coins }) {
                                 <tbody>
                                     {coins.map((key, index) => {
                                         return (
-                                            <tr style={{ backgroundColor: "#1e2433" }}>
+                                            <tr key={index} style={{ backgroundColor: "#1e2433" }}>
 
                                                 <td style={{ padding: "20px 200px 20px 50px", textAlign: "left" }}>{key[0]}</td>
                                                 <td style={{ padding: "20px 200px 20px 200px", textAlign: "left" }}>{key[1]}</td>
