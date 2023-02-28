@@ -26,6 +26,7 @@ const coinSchema = new Schema({
     BTC:Number,
     ETH:Number,
     INR:Number,
+    USDT:Number
 })
 
 

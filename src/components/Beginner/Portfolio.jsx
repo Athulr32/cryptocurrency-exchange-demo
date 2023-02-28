@@ -69,7 +69,7 @@ export default function Portfolio({ coins }) {
                                     <tr style={{ backgroundColor: "#161d2b", padding: "10px" }}>
                                         <th style={{ padding: "10px 200px 20px 50px", textAlign: "left" }}>Coin</th>
                                         <th style={{ padding: "2px 200px 2px 200px", textAlign: "left" }}>Amount</th>
-                                        <th style={{ padding: "2px 200px 2px 200px", textAlign: "left" }}>Price</th>
+                                        <th style={{ padding: "2px 200px 2px 200px", textAlign: "left" }}>Price (INR)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -79,7 +79,7 @@ export default function Portfolio({ coins }) {
 
                                                 <td style={{ padding: "20px 200px 20px 50px", textAlign: "left" }}>{key[0]}</td>
                                                 <td style={{ padding: "20px 200px 20px 200px", textAlign: "left" }}>{key[1]}</td>
-                                                <td style={{ padding: "20px 200px 20px 200px", textAlign: "left" }}>4532</td>
+                                                <td style={{ padding: "20px 200px 20px 200px", textAlign: "left" }}>{(Number(key[1])*key[2]).toFixed(2)}</td>
                                             </tr>
                                         )
 

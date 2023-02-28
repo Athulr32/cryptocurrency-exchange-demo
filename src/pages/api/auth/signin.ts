@@ -33,7 +33,8 @@ export default async function handler(req: Data, res: NextApiResponse) {
                     email,
                     BTC: 0,
                     ETH: 0,
-                    INR: 0
+                    INR: 0,
+                    USDT:0,
                 }).save().then((result: any) => {
                     console.log(result)
                     res.json({ msg: "Success", flag: true });

@@ -6,6 +6,8 @@ import styles from "./Trade.module.css";
 export default function Trade() {
 
 
+    const [traded, setTraded] = useState(false)
+    const [msg, setMsg] = useState("")
     //Amount that user will get for a particular input
     const [coin2Price, setCoin2Price] = useState(0);
 
@@ -53,7 +55,7 @@ export default function Trade() {
             }
 
         }
-        catch(e){
+        catch (e) {
 
         }
     }
@@ -64,7 +66,22 @@ export default function Trade() {
     async function swap() {
 
 
+        const swapData = {
+            coin1: searchCoin1,
+            coin1Amount: coin1Amount.current.value,
+            coin2: searchCoin2,
+            coin2Amount: coin2Price
+        }
 
+
+        const req = await fetch("/api/trade", {
+            method: "POST",
+            body: JSON.stringify(swapData)
+        })
+
+        const res = await req.json();
+        setTraded(true);
+        setMsg(res.msg);
     }
 
 
@@ -83,21 +100,21 @@ export default function Trade() {
 
     useEffect(() => {
         let coinS = searchCoin2;
-        if(searchCoin2 == "bitcoin"){
+        if (searchCoin2 == "bitcoin") {
             coinS = "BTC";
         }
-        else if(searchCoin2 == "ethereum" ){
+        else if (searchCoin2 == "ethereum") {
             coinS = "ETH"
         }
-        
+
         fetch("/api/userwallet/singlecoin", {
             method: "POST",
             body: JSON.stringify({ coin: searchCoin1.toUpperCase() })
         }).then((res) => {
             return res.json()
         }).then((data) => {
-                console.log(data)
-            setCoin1(data.amount);
+            console.log(data)
+            setCoin1(data.amount.toFixed(6));
         })
 
 
@@ -107,7 +124,7 @@ export default function Trade() {
         }).then((res) => {
             return res.json()
         }).then((data) => {
-            setCoin2(data.amount);
+            setCoin2(data.amount.toFixed(6));
         })
 
     }, [searchCoin1, searchCoin2])
@@ -189,18 +206,20 @@ export default function Trade() {
                                 </div>
 
                                 <div className="mt-2">
-                                    <input defaultValue={coin2Price} ref={coin2Amount} placeholder="0" className="w-200 h-12 rounded-lg text-black outline-none p-2" />
+                                    <input value={coin2Price} ref={coin2Amount} placeholder="0" className="w-200 h-12 rounded-lg text-black outline-none p-2" />
                                 </div>
                             </div>
 
-                            <div className="mt-10 text-center bg-rose-900 h-10 rounded-lg">
-                                <button className="pt-2 w-1/5">Trade</button>
+                            <div className="mt-10 text-center bg-rose-900 h-10 rounded-lg" style={{width:"100%"}}>
+                                <button onClick={swap} className="pt-2" style={{width:"100%"}}>Trade</button>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
-
-
+                {traded && <div className="text-white text-center" style={{fontSize:"30px"}}>{msg}</div>
+                }
             </div>
         </>
     )
