@@ -173,7 +173,7 @@ export default function Trade() {
                                             {/* <option value="avax">AVAX</option> */}
                                         </select>
 
-                                        <div>{coin1}</div>
+                                        <div style={{padding:"10px 0px 0px 10px"}}>{coin1}</div>
                                     </div>
 
                                 </div>
@@ -201,7 +201,7 @@ export default function Trade() {
 
                                         </select>
 
-                                        <div>{coin2}</div>
+                                        <div style={{padding:"10px 0px 0px 10px"}}>{coin2}</div>
                                     </div>
                                 </div>
 

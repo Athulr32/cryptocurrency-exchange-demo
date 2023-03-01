@@ -6,7 +6,7 @@ import Deposit from "./Deposit.jsx";
 
 
 
-export default function Portfolio({ coins }) {
+export default function Portfolio({ coins,total }) {
 
     
 
@@ -34,12 +34,12 @@ export default function Portfolio({ coins }) {
                         <div>
                             <div className="text-3xl ">Balance</div>
 
-                            <div className="mt-4 text-white w-60 p-4" style={{ backgroundColor: "#1e2433" }}>
-                                <div className="m-2">
-                                    Total Portfolio Value
+                            <div className="mt-4 text-white w-100 p-4" style={{ backgroundColor: "#1e2433" }}>
+                                <div className="m-2" style={{fontSize:'20px',padding:"10px"}}>
+                                    Total Portfolio Value 
                                 </div>
-                                <div className="m-2">
-                                    10 dollar
+                                <div className="m-2" style={{fontSize:'20px',padding:"10px"}}>
+                                    {total.toFixed(3)} INR
                                 </div>
                             </div>
 

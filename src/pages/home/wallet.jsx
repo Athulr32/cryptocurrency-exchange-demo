@@ -3,14 +3,14 @@ import Portfolio from "@/components/Beginner/Portfolio";
 import axios from "axios";
 
 
-export default function Wallet({ coins }) {
+export default function Wallet({ coins,total }) {
 
 
     return (
         <div style={{ height: "100%" }}>
             <div style={{ height: "100%" }}>
                 <Header></Header>
-                <Portfolio coins={coins}></Portfolio>
+                <Portfolio coins={coins} total={total}></Portfolio>
             </div>
         </div>
 
@@ -45,9 +45,13 @@ export async function getServerSideProps({ req, res }) {
 
     coins = Object.entries(coins);
 
+
+    let total =0 ;
+
     for (let coin of coins) {
 
         if (coin[0] == "INR") {
+            total = total + coin[1];
             coin.push(1)
         }
         else {
@@ -68,7 +72,8 @@ export async function getServerSideProps({ req, res }) {
 
                 const res = await req.json();
 
-                let price = res[foo].usd
+                let price = res[foo].usd;
+                total = total +( (price * 83)*coin[1])
                 coin.push(price * 83);
             }
             catch (e) {
@@ -80,10 +85,12 @@ export async function getServerSideProps({ req, res }) {
     }
 
     console.log(coins)
+    console.log(total)
 
     return {
         props: {
-            coins
+            coins,
+            total
         }
     }
 }
