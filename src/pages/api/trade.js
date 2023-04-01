@@ -20,6 +20,9 @@ export default async function handler(req, res) {
     else if (coin2 == "tether") {
         coin2 = "USDT"
     }
+    else if(coin2 == "avalanche-2"){
+        coin2 = "AVAX"
+    }
 
     coin1 = coin1.toUpperCase()
     const checkBalanceReq = await fetch("http://localhost:3000/api/userwallet/singlecoin", {
@@ -37,7 +40,7 @@ export default async function handler(req, res) {
         return;
     }
 
-    mongoose.connect("mongodb+srv://Athul:luhta%40123@cluster0.qhzaz.mongodb.net/?retryWrites=true&w=majority");
+    mongoose.connect(process.env.MONGO|| "");
 
     const getFullBalanceReq = await fetch("http://localhost:3000/api/userwallet/fullbalance", {
         method: "GET",

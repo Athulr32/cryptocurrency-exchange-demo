@@ -19,6 +19,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/Beginner/Portfolio.jsx", "src/pages/home/wallet.jsx", "src/components/Beginner/Deposit.jsx", "src/components/Beginner/Trade.jsx", "src/pages/index.jsx", "src/pages/home/learn.jsx", "src/pages/home/index.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/Beginner/Portfolio.jsx", "src/pages/home/wallet/index.jsx", "src/components/Beginner/Deposit.jsx", "src/components/Beginner/Trade.jsx", "src/pages/index.jsx", "src/pages/home/learn.jsx", "src/pages/home/index.jsx"],
   "exclude": ["node_modules"]
 }

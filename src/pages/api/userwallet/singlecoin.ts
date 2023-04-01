@@ -19,12 +19,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const coin = JSON.parse(req.body).coin
    
-    mongoose.connect("mongodb+srv://Athul:luhta%40123@cluster0.qhzaz.mongodb.net/?retryWrites=true&w=majority");
-
+    mongoose.connect(process.env.MONGO|| "");
+    console.log(coin)
     let get_coin = await Coin.findOne({ email })
-
+ 
     let coin_amount = get_coin[coin]
-
+   
     res.json({ amount: coin_amount })
 
 }

@@ -1,4 +1,5 @@
 import axios from "axios"
+import Link from "next/link.js";
 import { useEffect, useState } from "react"
 import Deposit from "./Deposit.jsx";
 
@@ -55,7 +56,7 @@ export default function Portfolio({ coins,total }) {
                             </div >
                             <div className="mx-2.5 mt-5">
                                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
-                                    Withdraw
+                                   <Link href="wallet/withdraw"> Withdraw</Link>
                                 </button>
                             </div>
                         </div>

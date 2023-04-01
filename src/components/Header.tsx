@@ -22,7 +22,7 @@ export default function Header() {
                         </div>
 
                         <div className="mx-2.5 mt-5">
-                            Markets
+                        <Link href={"/market"}> Market </Link>
                         </div >
 
                         <div className="mx-2.5 mt-5" >
@@ -37,6 +37,13 @@ export default function Header() {
                             <Link href={"/home/learn"}> Learn </Link>
                         </div >
 
+                        <div className="mx-2.5 mt-5">
+                            <Link href={"/trending"}> Trending </Link>
+                        </div >
+
+                        <div className="mx-2.5 mt-5">
+                            <Link href={"/trending"}> Statistics </Link>
+                        </div >
                     </div>
 
 

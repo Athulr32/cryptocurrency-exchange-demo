@@ -4,7 +4,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 
 export default function protect(req: any) {
 
-
+    console.log(req.headers)
     const { token } = cookie.parse(req.headers.cookie)
     console.log(token)
 

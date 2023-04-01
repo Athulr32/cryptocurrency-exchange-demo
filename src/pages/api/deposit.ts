@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const amount = Number(req.body.amount);
 
-    mongoose.connect("mongodb+srv://Athul:luhta%40123@cluster0.qhzaz.mongodb.net/?retryWrites=true&w=majority");
+    mongoose.connect(process.env.MONGO|| "");
 
     let get_coin = await Coin.findOne({ email })
 

@@ -20,7 +20,7 @@ export default async function handler(req: Data, res: NextApiResponse) {
 
         const { email, password } = req.body;
 
-        mongoose.connect("mongodb+srv://Athul:luhta%40123@cluster0.qhzaz.mongodb.net/?retryWrites=true&w=majority");
+        mongoose.connect(process.env.MONGO|| "");
 
         const user = await  User.findOne({ email, password });
         console.log(user);

@@ -65,6 +65,9 @@ export async function getServerSideProps({ req, res }) {
             else if (coin[0] == "USDT") {
                 foo = "tether"
             }
+            else if (coin[0] == "AVAX") {
+                foo = "avalanche-2"
+            }
 
 
             try {

@@ -9,6 +9,9 @@ export interface CointType extends Document{
     BTC:Number,
     ETH:Number,
     INR:Number,
+    USDT:Number,
+    AVAX:Number
+    
 }
 
  const userSchema = new Schema({
@@ -26,7 +29,8 @@ const coinSchema = new Schema({
     BTC:Number,
     ETH:Number,
     INR:Number,
-    USDT:Number
+    USDT:Number,
+    AVAX:Number
 })
 
 

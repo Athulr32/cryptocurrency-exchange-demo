@@ -8,6 +8,7 @@ export default function Trade() {
 
     const [traded, setTraded] = useState(false)
     const [msg, setMsg] = useState("")
+
     //Amount that user will get for a particular input
     const [coin2Price, setCoin2Price] = useState(0);
 
@@ -19,7 +20,7 @@ export default function Trade() {
                 const req = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${searchCoin2}&vs_currencies=usd`)
 
                 const res = await req.json();
-                console.log(res[searchCoin2])
+                console.log("res")
                 const price = res[searchCoin2].usd * 83;
                 console.log(price);
                 const amountUserget = e.target.value / price;
@@ -27,6 +28,7 @@ export default function Trade() {
 
             }
             else if (searchCoin2 == "INR") {
+
                 let coin = ""
                 if (searchCoin1 == "eth") {
                     coin = "ethereum"
@@ -34,6 +36,12 @@ export default function Trade() {
                 else if (searchCoin1 == "btc") {
                     coin = "bitcoin"
                 }
+                else if(searchCoin1 == "avax"){
+                    coin = "avalanche-2"
+                }
+
+             
+               
                 const req = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=usd`)
 
                 const res = await req.json();
@@ -45,7 +53,7 @@ export default function Trade() {
                 const req = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${searchCoin2}&vs_currencies=${searchCoin1}`)
                 console.log(`https://api.coingecko.com/api/v3/simple/price?ids=${searchCoin2}&vs_currencies=${searchCoin1}`)
                 const res = await req.json();
-
+                console.log("res")
                 const one_searchCoin2 = res[searchCoin2][searchCoin1];
                 const one_searchCoin1 = 1 / one_searchCoin2;
 
@@ -105,6 +113,12 @@ export default function Trade() {
         }
         else if (searchCoin2 == "ethereum") {
             coinS = "ETH"
+        }
+        else if (searchCoin2 == "tether") {
+            coinS = "USDT"
+        }
+        else if(searchCoin2 == "avalanche-2"){
+            coinS = "AVAX"
         }
 
         fetch("/api/userwallet/singlecoin", {
@@ -169,11 +183,12 @@ export default function Trade() {
                                             <option value="INR">INR</option>
                                             <option value="btc">BTC</option>
                                             <option value="eth">ETH</option>
-                                            <option value="usd">USDT</option>
+                                            <option value="usdt">USDT</option>
+                                            <option value="avax">AVAX</option>
                                             {/* <option value="avax">AVAX</option> */}
                                         </select>
 
-                                        <div style={{padding:"10px 0px 0px 10px"}}>{coin1}</div>
+                                        <div style={{ padding: "10px 0px 0px 10px" }}>{coin1}</div>
                                     </div>
 
                                 </div>
@@ -196,12 +211,12 @@ export default function Trade() {
                                             <option value="tether">USDT</option>
                                             <option value="INR">INR</option>
                                             <option value="bitcoin">BTC</option>
-
+                                            <option value="avalanche-2">AVAX</option>
 
 
                                         </select>
 
-                                        <div style={{padding:"10px 0px 0px 10px"}}>{coin2}</div>
+                                        <div style={{ padding: "10px 0px 0px 10px" }}>{coin2}</div>
                                     </div>
                                 </div>
 
@@ -210,15 +225,15 @@ export default function Trade() {
                                 </div>
                             </div>
 
-                            <div className="mt-10 text-center bg-rose-900 h-10 rounded-lg" style={{width:"100%"}}>
-                                <button onClick={swap} className="pt-2" style={{width:"100%"}}>Trade</button>
+                            <div className="mt-10 text-center bg-rose-900 h-10 rounded-lg" style={{ width: "100%" }}>
+                                <button onClick={swap} className="pt-2" style={{ width: "100%" }}>Trade</button>
                             </div>
                         </div>
                     </div>
 
 
                 </div>
-                {traded && <div className="text-white text-center" style={{fontSize:"30px"}}>{msg}</div>
+                {traded && <div className="text-white text-center" style={{ fontSize: "30px" }}>{msg}</div>
                 }
             </div>
         </>
