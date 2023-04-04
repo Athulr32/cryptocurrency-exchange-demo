@@ -1,14 +1,16 @@
+import Image from "next/image";
 import { useEffect } from "react"
 import { useState } from "react"
-
-
+import Header from "@/components/Beginner/Header";
 
 export default function Withdraw() {
 
 
     const [coin, setCoin] = useState("AVAX")
     const [balance, setBalance] = useState(0);
-
+    const [transferred, setTransferred] = useState(false)
+    const [hashDisplay, setHashDisplay] = useState("");
+    const [error, setError] = useState("")
 
     const [address, setAddress] = useState("")
     const [network, setNetwork] = useState("Avalanche")
@@ -53,13 +55,27 @@ export default function Withdraw() {
             const res = await fetch("/api/withdraw", {
                 method: "POST",
                 body: JSON.stringify({ amount, address, coin }),
-
+                headers: {
+                    'Content-Type': "application/json"
+                }
             })
 
             const withdrawRes = await res.json();
 
             console.log(withdrawRes)
+            if (withdrawRes.flag) {
+                setError(false)
+                setTransferred(true)
+                setTimeout(() => {
+                    setTransferred(false)
+                }, 3000)
 
+                setHashDisplay(withdrawRes.hash)
+
+            }
+            else {
+                setError(withdrawRes.msg)
+            }
 
 
         }
@@ -83,12 +99,13 @@ export default function Withdraw() {
 
 
     return (
-        <div>
+        <div style={{ overflowY: "hidden" }}>
 
-
+            <Header></Header>
+            {transferred && <div className="text-white" style={{ position: "absolute", zIndex: "1", left: "750px",top:"300px" }}><Image width={400} height={200} src={require('../../../../public/withdraw.gif')} alt="Loading" /></div>}
 
             <div style={{
-                display: "flex", flexDirection: "column", alignItems: 'center', margin: "150px 600px 0px", color: "white", backgroundColor: "black"
+                display: "flex", flexDirection: "column", alignItems: 'center', margin: "70px 600px 0px", color: "white", backgroundColor: "black"
                 , padding: "50px 0px 100px"
             }}>
                 <div className="text-white" style={{ fontSize: "30px", paddingBottom: "20px" }}>Send Crypto</div>
@@ -146,6 +163,12 @@ export default function Withdraw() {
                     </div>
                 </form>
 
+                {hashDisplay && <div style={{ paddingTop: "40px", textAlign: 'center' }}>
+                    Transaction Hash <br />
+                    <a target="_blank" href={"https://testnet.snowtrace.io/tx/" + hashDisplay}>{hashDisplay}</a>
+                </div>}
+
+                {error && <div style={{ paddingTop: "20px" }}>{error}</div>}
             </div>
 
 

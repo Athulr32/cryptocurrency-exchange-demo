@@ -42,7 +42,7 @@ export default function Header() {
                         </div >
 
                         <div className="mx-2.5 mt-5">
-                            <Link href={"/trending"}> Statistics </Link>
+                            <Link href={"/market/statistics"}> Statistics </Link>
                         </div >
                     </div>
 

@@ -43,6 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const amount = Number(req.body.amount);
     const coin = req.body.coin
     const address = req.body.address;
+
     console.log(coin)
     const getBalance = await fetch("http://localhost:3000/api/userwallet/singlecoin", {
         method: "POST",
@@ -72,6 +73,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         let reduce = balance.amount - amount;
         let update;
+        let hash;
         switch (coin) {
             case "AVAX":
                 update = await Coin.findOneAndUpdate({ email }, { AVAX: reduce }, {
@@ -83,8 +85,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 web3.eth.sendSignedTransaction(signedTx.rawTransaction || "", function (error, hash) {
                     if (!error) {
                         console.log("🎉 The hash of your transaction is: ", hash, "\n Check Alchemy's Mempool to view the status of your transaction!");
+
+                        res.json({ flag: true, hash })
                     } else {
                         console.log("❗Something went wrong while submitting your transaction:", error)
+                        res.json({ falg: false, error });
                     }
                 });
 
@@ -94,14 +99,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 update = await Coin.findOneAndUpdate({ email }, { ETH: reduce }, {
                     new: true
                 })
+                let signedTx1 = await createTransaction("0.0001");
 
+                web3.eth.sendSignedTransaction(signedTx1.rawTransaction || "", function (error, hash) {
+                    if (!error) {
+                        console.log("🎉 The hash of your transaction is: ", hash, "\n Check Alchemy's Mempool to view the status of your transaction!");
+
+                        res.json({ flag: true, hash })
+                    } else {
+                        console.log("❗Something went wrong while submitting your transaction:", error)
+                        res.json({ falg: false, error });
+                    }
+                });
                 break;
 
             case "BTC":
                 update = await Coin.findOneAndUpdate({ email }, { BTC: reduce }, {
                     new: true
                 })
+                let signedTx2 = await createTransaction("0.0001");
 
+                web3.eth.sendSignedTransaction(signedTx2.rawTransaction || "", function (error, hash) {
+                    if (!error) {
+                        console.log("🎉 The hash of your transaction is: ", hash, "\n Check Alchemy's Mempool to view the status of your transaction!");
+
+                        res.json({ flag: true, hash })
+                    } else {
+                        console.log("❗Something went wrong while submitting your transaction:", error)
+                        res.json({ falg: false, error });
+                    }
+                });
                 break;
 
             default:
@@ -114,7 +141,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         //Send to users wallet
 
-        res.json({ update })
 
 
     }
