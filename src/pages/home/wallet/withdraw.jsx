@@ -130,7 +130,7 @@ export default function Withdraw() {
                         Address
                     </div>
                     <div >
-                        <input onChange={addressHandler} style={{ color: "black" }} type="text" />
+                        <input onChange={addressHandler} style={{ color: "black",fontSize:"17px",width:"300px",height:"40px" }} type="text" />
                     </div>
 
                     <div style={{ padding: "20px 0px 20px" }}>

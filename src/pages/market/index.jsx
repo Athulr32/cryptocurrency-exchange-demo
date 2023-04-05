@@ -13,7 +13,7 @@ export default function Market() {
 
     async function getAllData() {
 
-        const coinData = ["bitcoin", "ethereum","arbitrum","ripple","avalanche-2"];
+        const coinData = ["bitcoin", "ethereum","tether","binancecoin","usd-coin","cardano","ripple","avalanche-2"];
         let temp = []
         for (let value of coinData) {
 

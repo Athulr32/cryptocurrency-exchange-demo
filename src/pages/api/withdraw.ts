@@ -6,7 +6,7 @@ import Web3 from "web3";
 
 const web3 = new Web3(new Web3.providers.HttpProvider("https://api.avax-test.network/ext/bc/C/rpc"));
 
-async function createTransaction(amount: string) {
+async function createTransaction(amount: string,address:string) {
 
     const value = web3.utils.toWei(amount);
 
@@ -14,7 +14,7 @@ async function createTransaction(amount: string) {
     const nonce = await web3.eth.getTransactionCount("0xC6c5c15BE51eF2614b3F3d0b6E21CC1A3C827590", 'latest');
     console.log("Nonce" + nonce)
     const transaction = {
-        'to': '0xA13655a9b0BeE93b6cee65AbCd4524140f79b8AA', // faucet address to return eth
+        'to': address, // faucet address to return eth
         'value': value,
         'gas': 8000000,
         'nonce': nonce,
@@ -40,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 
 
-    const amount = Number(req.body.amount);
+    const amount = req.body.amount;
     const coin = req.body.coin
     const address = req.body.address;
 
@@ -80,7 +80,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     new: true
                 })
 
-                let signedTx = await createTransaction("0.0001");
+                let signedTx = await createTransaction(amount,address);
 
                 web3.eth.sendSignedTransaction(signedTx.rawTransaction || "", function (error, hash) {
                     if (!error) {
@@ -99,7 +99,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 update = await Coin.findOneAndUpdate({ email }, { ETH: reduce }, {
                     new: true
                 })
-                let signedTx1 = await createTransaction("0.0001");
+                let signedTx1 = await createTransaction(amount,address);
 
                 web3.eth.sendSignedTransaction(signedTx1.rawTransaction || "", function (error, hash) {
                     if (!error) {
@@ -117,7 +117,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 update = await Coin.findOneAndUpdate({ email }, { BTC: reduce }, {
                     new: true
                 })
-                let signedTx2 = await createTransaction("0.0001");
+                let signedTx2 = await createTransaction(amount,address);
 
                 web3.eth.sendSignedTransaction(signedTx2.rawTransaction || "", function (error, hash) {
                     if (!error) {

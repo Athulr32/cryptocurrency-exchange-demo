@@ -79,8 +79,10 @@ export default function Portfolio({ coins,total }) {
                                             <tr key={index} style={{ backgroundColor: "#1e2433" }}>
 
                                                 <td style={{ padding: "20px 200px 20px 50px", textAlign: "left" }}>{key[0]}</td>
-                                                <td style={{ padding: "20px 200px 20px 200px", textAlign: "left" }}>{key[1]}</td>
-                                                <td style={{ padding: "20px 200px 20px 200px", textAlign: "left" }}>{(Number(key[1])*key[2]).toFixed(2)}</td>
+                                                <td style={{ padding: "20px 200px 20px 200px", textAlign: "left" }}>{key[1]}</td>{
+                                                    console.log(key[1],key[2])
+                                                }
+                                                <td style={{ padding: "20px 200px 20px 200px", textAlign: "left" }}>{(Number(key[1])*Number(key[2])).toFixed(2)}</td>
                                             </tr>
                                         )
 
